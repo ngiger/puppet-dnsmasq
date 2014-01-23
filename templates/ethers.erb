@@ -1,0 +1,6 @@
+<%= "# #{@managed_note}" %>
+# this allows us to call "wakeonlan name" to wake on via Lan any machine capable
+<% network_infos = scope.function_hiera(['dnsmasq::network_info'], []) %>
+<% for item in network_infos do %>
+<%= "#{item['mac']} #{sprintf('%20s', item['name'])} # #{item['ip']} " %><% end %>
+
