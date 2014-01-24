@@ -1,12 +1,7 @@
 <%= "# #{@managed_note}" %>
 domain=<%= scope.lookupvar('domain') %>
 
-# Always give the host with Ethernet address 11:22:33:44:55:66
-# the name fred and IP address 192.168.0.60 and lease time 45 minutes
-#dhcp-host=11:22:33:44:55:66,fred,192.168.0.60,45m
-<% network_infos = scope.function_hiera(['dnsmasq::network_info']) %>
-<% for item in network_infos do %>
-<%= "dhcp-host=#{item['mac']},#{item['name']},#{item['ip']},120d" %><% end %>
+dhcp-option=3,<%=scope.function_hiera(['dnsmasq::gateway', '172.44.44.44']) %>
 
 # Set this (and domain: see below) if you want to have a domain
 # automatically added to simple names in a hosts-file.
@@ -15,3 +10,11 @@ expand-hosts
 <% add2conf = scope.function_hiera(['dnsmasq::add2conf']) %>
 <% for line in add2conf do %>
 <%= line %><% end %>
+
+# Always give the host with Ethernet address 11:22:33:44:55:66
+# the name fred and IP address 192.168.0.60 and lease time 45 minutes
+#dhcp-host=11:22:33:44:55:66,fred,192.168.0.60,45m
+<% network_infos = scope.function_hiera(['dnsmasq::network_info']) %>
+<% for item in network_infos do %>
+<%= "dhcp-host=#{item['mac']},#{item['name']},#{item['ip']},120d" %><% end %>
+

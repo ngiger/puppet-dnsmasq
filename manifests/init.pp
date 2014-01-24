@@ -20,7 +20,11 @@ class dnsmasqplus(
       require => Package['dnsmasq'], # provides DHCP-server
       backup => false,
     }
-    hiera_include('classes')
+    # hiera_include('classes')
+    file { "/etc/hosts":
+      mode => 0644,
+      content => template("dnsmasqplus/hosts.erb"),
+    }
 
   } else {
     package{ 'dnsmasq': ensure => absent, }

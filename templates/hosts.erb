@@ -7,3 +7,6 @@
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
+<% network_infos = scope.function_hiera(['dnsmasq::network_info', []]) %>
+<% for item in network_infos do %>
+<%= "#{sprintf('%16s', item['ip'])} #{item['name']} #{item['alias']} " %><% end %>
