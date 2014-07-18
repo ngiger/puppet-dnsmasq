@@ -1,4 +1,4 @@
-h1. dnsmasqplus module for Puppet
+h1. dnsmasq module for Puppet
 
 This module provides classes to manage dnmasq server.
 
@@ -13,14 +13,14 @@ h2. Examples
 
 * To install the dnmasq server:
 
-    @class { 'dnsmasqplus': }@
+    @class { 'dnsmasq': }@
 
 This sets ensure => present for the package. If you want to set a different
-value, you can override the dnsmasqplus::params::ensure parameter using hiera.
+value, you can override the dnsmasq::params::ensure parameter using hiera.
 
 * To install a wakeonlan and include_thinclient
 
-bq. class {'dnsmasqplus':
+bq. class {'dnsmasq':
     is_dnsmasq_server => true,
     include_wakeonlan => true,
     include_thinclient => true,

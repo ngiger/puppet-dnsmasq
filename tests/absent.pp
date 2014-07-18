@@ -1,1 +1,1 @@
-dnsmasqplus{"without_dnsmasqplus_client": ensure => absent }
+dnsmasq{"without_dnsmasq_client": ensure => absent }

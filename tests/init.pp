@@ -1,2 +1,2 @@
-require dnsmasqplus
+require dnsmasq
 
