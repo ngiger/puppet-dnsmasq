@@ -5,12 +5,14 @@
 # the Free Software Foundation.class 
 
 class dnsmasq (
+	$ensure             = false,
   $is_dnsmasq_server  = hiera('dnsmasq::ensure', 'false'),
   $include_wakeonlan  = hiera('dnsmasq::wakeonlan', 'false'),
   $include_thinclient = hiera('dnsmasq::thinclient', 'false'),
   $managed_note       = 'Managed by puppet (https://github.com/ngiger/puppet-dnsmasq)',
   $add2conf = '',
 ) {
+	if ($ensure) {
   if ($is_dnsmasq_server) {
     ensure_packages(['dnsmasq-base', 'dnsmasq'])
     if false {
@@ -72,6 +74,7 @@ class dnsmasq (
   } else {
     package{ 'dnsmasq': ensure => absent, }
   }
+	}
 }
 # vim: ts=2 et sw=2 autoindent
 

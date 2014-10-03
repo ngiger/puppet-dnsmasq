@@ -5,7 +5,7 @@
 # the Free Software Foundation.class 
 
 class dnsmasq::wakeonlan(
-  $ensure = true,
+  $ensure = false,
 ) {
   include dnsmasq
   if $ensure {
