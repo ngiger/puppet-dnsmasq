@@ -7,7 +7,7 @@ dhcp-option=3,<%=scope.function_hiera(['dnsmasq::gateway', '172.44.44.44']) %>
 # automatically added to simple names in a hosts-file.
 expand-hosts
 
-<%scope.function_hiera(['dnsmasq::add2conf', []]).each  do |line| %>
+<% scope.function_hiera(['dnsmasq::add2conf', []]).each  do |line| %>
 <%= line %>
 <% end %>
 

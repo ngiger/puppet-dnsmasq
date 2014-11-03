@@ -1,8 +1,0 @@
-name         'ngiger-dnsmasqlus'
-version      '0.1.0'
-summary      'dnsmasqlus Puppet module.'
-description  'Puppet module for dnmasq server and configuration /etc/ethers'
-project_page 'https://github.com/ngiger/puppet-dnsmasqlus'
-license      'GNU General Public License v3 or Later (GPLv3+)'
-author       'Niklaus Giger <niklaus.giger@member.fsf.org>'
-dependency   'puppetlabs/apt', '>= 1.0.0'

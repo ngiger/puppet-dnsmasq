@@ -1,16 +1,19 @@
 # Copyright 2014, niklaus.giger@member.fsf.org
 #
-# This program is free software; you can redistribute it and/or modify it 
+# This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3 as published by
-# the Free Software Foundation.class 
+# the Free Software Foundation.class
 class dnsmasq::ltsp(
+    $ensure       = false,
     $tftp_root    = '/var/lib/tftpboot/',
     $root_path    = '/opt/ltsp/i386',
     $boot_params  = 'ltsp/i386/pxelinux.0,server,192.168.1.1',
     $pxe_service  = 'X86PC, "Boot thinclient from network (x2go)", /pxelinux, 192.168.1.1',
 ) {
-  
-  if ($include_thinclient) {
+
+  if ($ensure != false) {
+    if !defined(Class['dnsmasq']) {class{'dnsmasq':  ensure => $ensure, is_dnsmasq_server => $ensure} }
+    if !defined(Class['dnsmasq::tftp']) {class{'dnsmasq::tftp':  ensure => $ensure} }
     package{ ['atftpd', 'tftpd', 'tftpd-hpa']:  ensure => absent }
 
     # When running under docker: work around for problem net_server setting capabilities failed: Operation not permitted
@@ -18,14 +21,14 @@ class dnsmasq::ltsp(
     exec { "/etc/dnsmasq.d/user_root":
       command => '/bin/echo "user=root" >> /etc/dnsmasq.d/user_root',
       unless  => '/usr/bin/test -e /.dockerenv && /usr/bin/test -f /etc/dnsmasq.d/user_root',
-      require => [File['/etc/dnsmasq.d'], Package['dnsmasq'] ],
+      require => [Package['dnsmasq'] ],
     }
 
-    file { "/etc/dnsmasq.d/thinclient":
+    file { "/etc/dnsmasq.d/ltsp":
       mode => 0644,
 #      notify => Runit::Service['dnsmasq'],
-      require => [File['/etc/dnsmasq.d'], Package['dnsmasq'] ],
-      content => "# $managed_note
+      require => [Package['dnsmasq'] ],
+      content => "# $::dnsmasq::managed_note
 
 # Configures dnsmasq for PXE client booting.
 # Log lots of extra information about DHCP transactions.

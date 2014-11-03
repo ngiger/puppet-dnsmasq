@@ -1,0 +1,35 @@
+---
+# encoding: utf-8
+# Copyright 2014 by Niklaus Giger <niklaus.giger@member.fsf.org>
+# I prefer to minimize the use of hieradata for unit tests
+# Here all values are set to different value than the default to allow a good rsped
+dnsmasq::ensure:             true
+dnsmasq::ensure:             true
+dnsmasq::is_dnsmasq_server:  true
+dnsmasq::include_wakeonlan:  true
+dnsmasq::include_thinclient: true
+dnsmasq::managed_note:       'managed_note mustermann'
+dnsmasq::add2conf:           ['# comment mustermann']
+
+dnsmasq::ltsp::ensure: true
+dnsmasq::ltsp::tftp_root:    '/mustermann/lib/tftpboot/'
+dnsmasq::ltsp::root_path:    '/mustermann/ltsp/i386'
+dnsmasq::ltsp::boot_params:  'ltsp/i386/pxelinux.0,mustermann,192.169.1.1'
+dnsmasq::ltsp::pxe_service:  'X86PC, "Boot thinclient from network (x2go) mustermann", /pxelinux, 192.169.1.1'
+dnsmasq::tftp::tftp_root:    '/mustermann/tftpd'
+
+dnsmasq::verbosity::log_dhcp: true
+dnsmasq::verbosity::log_queries: true
+
+dnsmasq::wakeonlan::ensure: true
+
+dnsmasq::x2go_tce::ensure: true
+dnsmasq::x2go_tce::x2go_tce_root: '/mustermann/x2gothinclient'
+dnsmasq::x2go_tce::log_dhcp:      true
+dnsmasq::x2go_tce::boot_params:  'mustermann/i386/pxelinux.0,server,192.169.1.1'
+dnsmasq::x2go_tce::pxe_service: 'X86PC, "Boot thinclient from network (x2go) mustermann", /pxelinux, 192.169.1.1'
+dnsmasq::x2go_tce::tftp_root:   '/mustermann/tftpd'
+
+
+dnsmasq::network_info:
+  - { mac: '22:22:22:22:22:22', ip: '192.169.1.1',   name: 'mustermann_router'}

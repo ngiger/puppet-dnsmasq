@@ -1,0 +1,14 @@
+{
+  "name": "ngiger-dnsmasq",
+  "version": "0.1.1",
+  "author": "Niklaus Giger <niklaus.giger@member.fsf.org>",
+  "summary": "dnsmasq Puppet module.",
+  "license": "GNU General Public License v3 or Later (GPLv3+)",
+  "source": "",
+  "project_page": "https://github.com/ngiger/puppet-dnsmasq",
+  "issues_url": null,
+  "description": "Puppet module for dnmasq server and configuration /etc/ethers",
+  "dependencies": [
+    {"name":"puppetlabs/apt","version_requirement":">= 1.0.0"}
+  ]
+}
