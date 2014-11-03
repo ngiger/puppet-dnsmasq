@@ -14,8 +14,10 @@ class dnsmasq (
   $add2conf           = [], # additional lines to be added to the dnsmasq configuration file
   $running_as_docker  = false, # set it to true if you run inside a docker container
 ) {
-      notify{"dnsmasq line 17 $ensure and $is_dnsmasq_server": }
-	if ($ensure and $ensure != absent) {
+  # notify{"dnsmasq line 17 ensure $ensure and is_dnsmasq_server $is_dnsmasq_server": }
+  if ($ensure == absent) {
+      package{ 'dnsmasq': ensure => absent, }
+  } elsif ($ensure) {
   if ($is_dnsmasq_server) {
     ensure_packages(['dnsmasq-base', 'dnsmasq'])
     if ( $running_as_docker == false) {
@@ -41,6 +43,7 @@ class dnsmasq (
       require => [File['/etc/dnsmasq.d/foreground', "/etc/dnsmasq.d/$hostname"], Package['dnsmasq']],
     }
     } elsif false { # using daemontools for docker
+    notify{"dnsmasq line 46": }
 
 
       file { "/etc/service/dnsmasq": ensure  => directory, require => Package['dnsmasq'], }
@@ -72,13 +75,9 @@ class dnsmasq (
       backup => false,
 #      notify => Daemontools::Service ['dnsmasq'],
     }
-  } else {
-    notify{"dnsmasq ensure absent line 79": }
-    package{ 'dnsmasq': ensure => absent, }
-  }
 	}
 
-
+  }
 }
 # vim: ts=2 et sw=2 autoindent
 
