@@ -16,6 +16,9 @@ WheezyFacts = { :osfamily => 'Debian',
                 :hostname   => 'fully'
                 }
 
+# TODO: Hope this bugs gets squashed wit a new version of rspec
+# needed if  bundle exec rspec spec/classes/ fails, but each spec/*.spec is okay when run alone
+# see https://github.com/rodjek/rspec-puppet/issues/215
 module RSpec::Puppet
   module Support
     def build_catalog(*args)
