@@ -1,0 +1,10 @@
+---
+# encoding: utf-8
+# Copyright 2014 by Niklaus Giger <niklaus.giger@member.fsf.org>
+# I prefer to minimize the use of hieradata for unit tests
+# Here all values are set to different value than the default to allow a good rsped
+dnsmasq::ensure:             fals
+dnsmasq::include_wakeonlan:  true
+dnsmasq::wakeonlan::ensure: true
+dnsmasq::network_info:
+  - { mac: '22:22:22:22:22:22', ip: '192.169.1.1',   name: 'wakeonlan'}

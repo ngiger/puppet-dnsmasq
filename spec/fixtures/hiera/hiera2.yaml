@@ -1,0 +1,8 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - only_wakeonlan
+:yaml:
+    :datadir: 'spec/fixtures/hiera'
+

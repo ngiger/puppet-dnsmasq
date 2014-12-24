@@ -1,2 +1,2 @@
-require dnsmasq
+dnsmasq{"client": ensure => true }
 

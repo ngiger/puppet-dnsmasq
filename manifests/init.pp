@@ -14,7 +14,11 @@ class dnsmasq (
   $add2conf           = [], # additional lines to be added to the dnsmasq configuration file
   $running_as_docker  = false, # set it to true if you run inside a docker container
 ) {
-  # notify{"dnsmasq line 17 ensure $ensure and is_dnsmasq_server $is_dnsmasq_server": }
+  # notify{"dnsmasq line 17 ensure $ensure and is_dnsmasq_server $is_dnsmasq_server include_wakeonlan $include_wakeonlan": }
+  if ($include_wakeonlan == true) {
+    if !defined(Class['dnsmasq::wakeonlan']) {class{'dnsmasq::wakeonlan':  ensure => $ensure} }
+  }
+
   if ($ensure == absent) {
       package{ 'dnsmasq': ensure => absent, }
   } elsif ($ensure) {

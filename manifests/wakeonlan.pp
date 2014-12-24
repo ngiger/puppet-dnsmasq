@@ -8,7 +8,6 @@ class dnsmasq::wakeonlan(
   $ensure = false,
 ) {
   if ($ensure) {
-    class{'dnsmasq': ensure => $ensure}
     $managed_note = $::dnsmasq::managed_note
     package{ 'wakeonlan': ensure => present, }
     file { "/etc/ethers":
