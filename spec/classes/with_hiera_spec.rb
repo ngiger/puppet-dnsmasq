@@ -54,20 +54,6 @@ describe 'dnsmasq::verbosity' do
   end
 end
 
-describe 'dnsmasq::wakeonlan' do
-  let(:facts) { WheezyFacts }
-  context 'when using mustermann.yaml' do
-    let(:params) { { } }
-    let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
-    it { should compile }
-    it { should compile.with_all_deps }
-    it { should contain_file('/etc/ethers').with_content(/22:22:22:22:22:22\s+mustermann_router/) }
-    it { should contain_file('/etc/ethers').with_content(/managed_note mustermann/) }
-    it { should contain_package('wakeonlan') }
-    it { should_not contain_file('/etc/dnsmasq.d/xg2o_tce') }
-  end
-end
-
 describe 'dnsmasq::x2go_tce' do
   let(:facts) { WheezyFacts }
   context 'when using mustermann.yaml' do
